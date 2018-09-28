@@ -5,12 +5,10 @@ const router = express.Router();
 const queries = require('../database/queries');
 
 router.get('/', (req, res) => {
-    queries.getAll().then(cellar => {
-        res.json(cellar);
+    queries.getAll().then(users => {
+        res.json(users);
     });
 });
 
 
 
-
-module.exports = router;

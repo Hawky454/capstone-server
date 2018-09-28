@@ -8,6 +8,8 @@ let logger = require('morgan');
 let app = express();
 
 const cellar = require('./api/cellar');
+// const pipes = require('./api/pipes');
+// const users = require('./api/users');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -16,7 +18,9 @@ app.use(cookieParser());
 
 
 
-app.use('/api/v1/cellar', cellar);
+app.use('/api/cellar', cellar);
+// app.use('/api/pipes', pipes);
+// app.use('/api/users', users);
 
 
 
