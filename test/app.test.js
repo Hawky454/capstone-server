@@ -23,7 +23,7 @@ describe('CRUD The Tobacco Cellar', () => {
             .expect(200)
             .then((response) => {
               expect(response.body).to.be.a('array');
-            //   console.table(response.body);
+              console.table(response.body);
             //   expect(response.body).to.deep.equal(fixtures.cellar);
               done();
             });

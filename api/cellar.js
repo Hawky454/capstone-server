@@ -7,6 +7,7 @@ const queries = require('../database/queries');
 router.get('/', (req, res) => {
     queries.getAll().then(cellar => {
         res.json(cellar);
+        console.log(cellar);
     });
 });
 
