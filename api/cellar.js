@@ -22,8 +22,8 @@ let knex = require('knex')(config);
 //!I think I might prefer to do it this way...
 router.get('/', (req, res, next) => {
     knex('cellar')
-      .orderBy('id')
-      .then((cellar) => {
+    .orderBy('id')
+    .then((cellar) => {
         console.log(cellar);
         res.send(cellar);
       })
