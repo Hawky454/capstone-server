@@ -114,7 +114,7 @@ exports.seed = function(knex, Promise) {
           rating: 5
         },
         {
-          image: 'http://s3.amazonaws.com/tobrev/t/003-024-0021.jpg',
+          image: 'https://c647068.ssl.cf2.rackcdn.com/products/003-024-0026.jpg',
           brand: 'JF Germain',
           blend: 'Stonehaven',
           weight: 1,

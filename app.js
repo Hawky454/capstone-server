@@ -3,6 +3,7 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+// let CellarList = require('./routes/CellarList');
 
 
 let app = express();
@@ -22,11 +23,14 @@ app.use('/api/cellar', cellar);
 app.use('/api/pipes', pipes);
 app.use('/api/users', users);
 
+// app.use(CellarList);
+// console.log(CellarList);
+
 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  const err = new Error('Not Found');
+  const err = new Error('This is hitting the server but not finding the POST. Not Found');
   err.status = 404;
   next(err);
 });

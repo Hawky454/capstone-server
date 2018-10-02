@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const queries = require('../database/queriesPipes');
+
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[env];
