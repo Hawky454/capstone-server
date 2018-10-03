@@ -23,8 +23,7 @@ app.use('/api/cellar', cellar);
 app.use('/api/pipes', pipes);
 app.use('/api/users', users);
 
-// app.use(CellarList);
-// console.log(CellarList);
+
 
 
 

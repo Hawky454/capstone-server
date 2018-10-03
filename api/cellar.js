@@ -44,7 +44,7 @@ router.get('/', (req, res, next) => {
 // router.post('/', (req, res, next) => {
 //     knex('cellar')
 //     .insert({
-//         image: req.body.imgUrl,
+//         image: req.body.image,
 //         age: req.body.age,
 //         brand: req.body.brand,
 //         price: req.body.price,
