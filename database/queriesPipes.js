@@ -7,5 +7,8 @@ module.exports = {
     },
     create(pipes) {
         return knex('pipes').insert(pipes, '*');
+    },
+    delete(id) {
+        return knex('pipes').where('id', id).del();
     }
 }
