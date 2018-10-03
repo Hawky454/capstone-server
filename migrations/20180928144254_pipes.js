@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.string('brand');
       table.string('pipemaker');
       table.integer('year');
-      table.integer('price');
+      table.float('price', 2, 1);
       table.boolean('smooth').notNullable().defaultTo(false);
       table.boolean('sandblasted').notNullable().defaultTo(false);
       table.string('source');

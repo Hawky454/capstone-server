@@ -7,5 +7,8 @@ module.exports = {
     },
     create(cellar) {
         return knex('cellar').insert(cellar, '*');
+    },
+    delete(id) {
+        return knex('cellar').where('id', id).del();
     }
 }

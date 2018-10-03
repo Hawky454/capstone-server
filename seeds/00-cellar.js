@@ -102,7 +102,7 @@ exports.seed = function(knex, Promise) {
           rating: 5
         },
         {
-          image: 'https://mac-baren.com/uploads/product/photo/165/side_St.Bruno_Flake.png',
+          image: 'https://img.pipesandcigars.com/p/300/pt/c/cpf-tp-1000.png?v=310094&format=jpg',
           brand: 'Ogdens',
           blend: 'St. Bruno Ready Rubbed',
           weight: 20,

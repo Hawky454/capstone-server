@@ -40,30 +40,13 @@ router.get('/', (req, res, next) => {
     });
   });
 
-//! This is what I need to make a form for when user clicks the add button.
-// router.post('/', (req, res, next) => {
-//     knex('cellar')
-//     .insert({
-//         image: req.body.image,
-//         age: req.body.age,
-//         brand: req.body.brand,
-//         price: req.body.price,
-//         blend: req.body.blend,
-//         weight: req.body.weight,
-//         purchased: req.body.date,
-//         Available: req.body.available,
-//         source: req.body.source,
-//         rating: req.body.rating
-//     }, '*')
-
-//     .then(() => {
-//         res.render('cellar');
-//     })
-
-//     .catch((err) => {
-//         next(err);
-//     });
-//   });
+  router.delete('/:id', (req, res) => {
+    queries.delete(req.params.id).then(() => {
+        res.json({
+            deleted: true
+        });
+    });
+  });
 
 
 
