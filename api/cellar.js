@@ -5,6 +5,23 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
+
+
+function isValidId(req, res, next) {
+    if(!isNaN(req.params.id)) return next();
+    next(new Error('Invalid ID'));
+}
+
+function validateEntries(cellar) {
+    //todo still trying to figure out how to properly validate entries
+    const hasPrice = !isNaN(cellar.price);
+    const hasRating = !isNaN(cellar.rating);
+    const hasWeight = !isNaN(cellar.weight);
+    const hasAge = !isNaN(cellar.age);
+    const hasURL = isNaN(cellar.image) && cellar.image.trim() != '';
+    return hasPrice && hasRating && hasWeight && hasAge && hasURL;
+  }
+
 //! I can do it this way by directing it to the queries file or I can do it the way bellow the next 6 lines
 // router.get('/', (req, res) => {
 //     queries.getAll().then(cellar => {
@@ -29,18 +46,31 @@ router.get('/', (req, res, next) => {
 });
 
 
-
-
+// router.post('/', (req, res, next) => {
+//     //todo validate entries 
+//     queries.create(req.body).then(cellar => {
+//         res.json(cellar[0]);
+//         console.log('this is the request body', req.body);
+//     });
+// });
 
 router.post('/', (req, res, next) => {
-    //todo validate entries 
-    queries.create(req.body).then(cellar => {
-        res.json(cellar[0]);
-        console.log('this is the request body', req.body);
-    });
+    if(validateEntries(req.body)) {
+        queries.create(req.body).then(cellar => {
+            res.json(cellar[0]);
+        });
+    } else {
+        next(new Error('Invalid Entry Buckaroo'));
+    }
 });
 
-router.delete('/:id', (req, res) => {
+router.put('/:id', (req, res, next) => {
+    //todo validate entries
+    queries.put(req.body).then
+})
+
+
+router.delete('/:id', isValidId, (req, res) => {
     //todo validate entries
     queries.delete(req.params.id).then(() => {
         res.json({
