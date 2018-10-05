@@ -12,18 +12,7 @@ router.get('/', (req, res) => {
     });
 });
 
-//? I'm going to hold on to this version as I may end up using it in the near future
-// router.get('/', (req, res, next) => {
-//     knex('pipes')
-//     .orderBy('id')
-//     .then((pipes) => {
-//         console.log(pipes);
-//         res.send(pipes);
-//       })
-//       .catch((err) => {
-//         next(err);
-//       });
-//   });
+
 
 
   router.post('/', (req, res, next) => {

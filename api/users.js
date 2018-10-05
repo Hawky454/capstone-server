@@ -1,31 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const queries = require('../database/queries');
-
+const queriesUsers = require('../database/queriesUsers');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
-//? I'm going to hold on to this version as I may end up using it in the near future
-// router.get('/', (req, res) => {
-//     queries.getAll().then(users => {
-//         res.json(users);
-//         console.table(users);
-//     });
-// });
+router.get('/', (req, res) => {
+    queriesUsers.getAll().then(users => {
+        res.json(users);
+        console.table(users);
+    });
+});
 
-router.get('/', (req, res, next) => {
-    knex('users')
-    .orderBy('id')
-    .then((users) => {
-        console.log(users);
-        res.send(users);
-      })
-      .catch((err) => {
-        next(err);
-      });
+
+
+
+  router.post('/', (req, res, next) => {
+    //todo validate entries here
+    queriesUsers.create(req.body).then(users => {
+        res.json(users[0]);
+        console.log('this is the request body for users', req.body);
+    });
   });
 
+
+  router.delete('/:id', (req, res) => {
+    queriesUsers.delete(req.params.id).then(() => {
+      res.json({
+        deleted: true
+      });
+    });
+  });
 
 
 module.exports = router;

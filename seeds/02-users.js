@@ -6,19 +6,34 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('users').insert([
         {
-          fullname: 'David Miller',
+          email: 'hawky454@gmail.com',
           username: 'Hawky454',
-          password: 'Billygoat173@'
+          password: 'Billygoat173@',
+          password2: 'Billygoat173@',
+          address: '10707 Lake Creak Parkway',
+          city: 'Austin',
+          state: 'TX',
+          zip: 78750
         },
         {
-          fullname: 'Vlad Drac',
-          username: 'Bloodsucker69',
-          password: 'suckySucky123#'
+          email: 'dummy123@email.com',
+          username: 'BillyGoat69',
+          password: 'Billygoat173@',
+          password2: 'Billygoat173@',
+          address: '3434 Haven Oak Dr',
+          city: 'Portland',
+          state: 'OR',
+          zip: 97990
         },
         {
-          fullname: 'Bela Lugosi',
-          username: 'TheBelMeister',
-          password: 'sharpTeeth669'
+          email: 'sillyBread@gmail.com',
+          username: 'SillyBread1232',
+          password: 'SillyBread!@',
+          password2: 'SillyBread!@',
+          address: '1028 Colombia Circle',
+          city: 'Flagastaff',
+          state: 'AZ',
+          zip: 89839
         },
         
       ]);
