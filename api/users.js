@@ -5,12 +5,26 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
+
+function isValidId(req, res, next) {
+    if(!isNaN(req.params.id)) return next();
+    next(new Error('Invalid ID'));
+}
+
 router.get('/', (req, res) => {
     queriesUsers.getAll().then(users => {
         res.json(users);
         console.table(users);
     });
 });
+
+router.get('/:id', isValidId, (req, res) => {
+    queriesUsers.getOne(req.params.id).then(users => {
+        res.json(users);
+        console.table(users);
+    });
+});
+
 
 
 

@@ -8,6 +8,9 @@ module.exports = {
     create(users) {
         return knex('users').insert(users, '*');
     },
+   getOne(id) {
+       return knex('users').where('id', id).first();
+   },
     delete(id) {
         return knex('users').where('id', id).del();
     }
