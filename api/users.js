@@ -18,10 +18,15 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', isValidId, (req, res) => {
+router.get('/:id', isValidId, (req, res, next) => {
     queriesUsers.getOne(req.params.id).then(users => {
-        res.json(users);
-        console.table(users);
+        if (users) {
+            res.json(users);
+            console.table(users);
+        } else {
+            res.status(404);
+            next(new Error('Not Found! Hot Damn!'))
+        }
     });
 });
 
