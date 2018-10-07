@@ -4,6 +4,7 @@ const queriesUsers = require('../database/queriesUsers');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../knexfile')[env];
 const knex = require('knex')(config);
+const bcrypt = require('bcrypt');
 
 
 
@@ -28,10 +29,30 @@ router.post('/signup', (req, res, next) => {
                 console.log('user', user);
                 if (!user) {
                     //unique email
-                    res.json({
-                        user,
-                        message: '✅✅✅✅✅✅✅✅✅✅ check yoself befo you wrik yoself!'
-                    });
+                    //hash password
+                    bcrypt.hash(req.body.password, 8)
+                        .then((hash) => {
+                            //insert user into db
+                            const user = {
+                                email: req.body.email,
+                                username: req.body.username,
+                                address: req.body.address,
+                                city: req.body.city,
+                                state: req.body.state,
+                                zip: req.body.zip,
+                                password: hash,
+                                date: new Date()
+                            };
+
+                            queriesUsers.create(user)
+                                .then(id => {
+                                    //redirect
+                                    res.json({
+                                        id,
+                                        message: '✅ check yoself befo you wrek yoself!'
+                                    });
+                                });
+                        });
                 } else {
                     //email in use
                     next(new Error('Email in use'));
