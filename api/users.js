@@ -9,7 +9,7 @@ const knex = require('knex')(config);
 
 function validUser(user) {
     const validEmail = typeof user.email == 'string' && user.email.trim() != '';
-    const validPassword = typeof user.password == 'string' && user.password.trim() != '' && user.password.trim().length >=3;
+    const validPassword = typeof user.password == 'string' && user.password.trim() != '' && user.password.trim().length >= 3;
     return validEmail && validPassword;
 
 }
@@ -26,10 +26,16 @@ router.post('/signup', (req, res, next) => {
         queriesUsers.getOneByEmail(req.body.email)
             .then(user => {
                 console.log('user', user);
-                res.json({
-                    user,
-                    message: '✅✅✅✅✅✅✅✅✅✅, this is a message fo ya foo!'
-                });
+                if (!user) {
+                    //unique email
+                    res.json({
+                        user,
+                        message: '✅✅✅✅✅✅✅✅✅✅ check yoself befo you wrik yoself!'
+                    });
+                } else {
+                    //email in use
+                    next(new Error('Email in use'));
+                }
             });
     } else {
         next(new Error('Invalid user, fix yo shite!'));
@@ -46,13 +52,13 @@ router.post('/signup', (req, res, next) => {
 //   });
 
 
-  router.delete('/signup/:id', (req, res) => {
+router.delete('/signup/:id', (req, res) => {
     queriesUsers.delete(req.params.id).then(() => {
-      res.json({
-        deleted: true
-      });
+        res.json({
+            deleted: true
+        });
     });
-  });
+});
 
 
 module.exports = router;

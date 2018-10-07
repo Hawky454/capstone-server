@@ -8,6 +8,7 @@
     "test": "(dropdb --if-exists test-tobac-app && createdb test-tobac-app) && NODE_ENV=test mocha"
   },
   "dependencies": {
+    "bcrypt": "^3.0.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
