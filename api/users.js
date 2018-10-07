@@ -22,6 +22,7 @@ router.get('/signup', (req, res) => {
     });
 });
 
+//! Logic for user sign up!
 router.post('/signup', (req, res, next) => {
     if (validUser(req.body)) {
         queriesUsers.getOneByEmail(req.body.email)
@@ -49,7 +50,7 @@ router.post('/signup', (req, res, next) => {
                                     //redirect
                                     res.json({
                                         id,
-                                        message: '✅ check yoself befo you wrek yoself!'
+                                        message: '✅ Success!'
                                     });
                                 });
                         });
@@ -63,15 +64,21 @@ router.post('/signup', (req, res, next) => {
     }
 });
 
-//!don't delete below just in case the one your building doesn't work
-//   router.post('/signup', (req, res, next) => {
-//     //todo validate entries here
-//     queriesUsers.create(req.body).then(users => {
-//         res.json(users[0]);
-//         console.log('this is the request body for users', req.body);
-//     });
-//   });
-
+//! Logic for user logging in!!!! Here we go, this is exciting!
+router.post('/login', (req, res, next) => {
+    if(validUser(req.body)) {
+        //check to see if in db
+        queriesUsers.getOneByEmail(req.body.email)
+        .then(user => {
+           console.log('user', user);
+           res.json({
+               message: 'Logging in... 🔓'
+           });
+        });
+    } else {
+        next(new Error('Invalid login'));
+    }
+});
 
 router.delete('/signup/:id', (req, res) => {
     queriesUsers.delete(req.params.id).then(() => {
