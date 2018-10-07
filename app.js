@@ -4,20 +4,30 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const cellar = require('./api/cellar');
 const pipes = require('./api/pipes');
 const users = require('./api/users');
-// const auth = require('./auth');
+
 
 
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({
-  extended: false
-}));
-app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+//! Think I eventually need to do a join(__dirname, 'directory_here') once I deploy
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser(process.env.COOKIE_SECRET));
+//! dont think I need these now that I've installed body-parser?
+// app.use(express.json());
+// app.use(express.urlencoded({
+//   extended: false
+// }));
+app.use(cors());
+
+
 
 
 // app.use('/auth', auth);

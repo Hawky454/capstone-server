@@ -66,27 +66,47 @@ router.post('/signup', (req, res, next) => {
 
 //! Logic for user logging in!!!! Here we go, this is exciting!
 router.post('/login', (req, res, next) => {
-    if(validUser(req.body)) {
+    if (validUser(req.body)) {
         //check to see if in db
         queriesUsers.getOneByEmail(req.body.email)
-        .then(user => {
-           console.log('user', user);
-           res.json({
-               message: 'Logging in... 🔓'
-           });
-        });
+            .then(user => {
+                console.log('user', user);
+                if (user) {
+                    // Compare password with hashed password
+                    bcrypt.compare(req.body.password, user.password)
+                        .then((result) => {
+                            //if passwords match
+                            if (result) {
+                                //this is where we set a cookie
+                                res.cookie('user_id', user.id, {
+                                    httpOnly: true,
+                                    secure: true,
+                                    signed: true
+                                });
+                                res.json({
+                                    result,
+                                    message: 'Logged in, success!!🔓'
+                                });
+                            } else {
+                                next(new Error('Invalid login ☹️'))
+                            }
+                        });
+                } else {
+                    next(new Error('User not found in the database!'));
+                }
+            });
     } else {
         next(new Error('Invalid login'));
     }
 });
 
-router.delete('/signup/:id', (req, res) => {
-    queriesUsers.delete(req.params.id).then(() => {
-        res.json({
-            deleted: true
-        });
-    });
-});
+// router.delete('/signup/:id', (req, res) => {
+//     queriesUsers.delete(req.params.id).then(() => {
+//         res.json({
+//             deleted: true
+//         });
+//     });
+// });
 
 
 module.exports = router;
