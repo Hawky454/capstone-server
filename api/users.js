@@ -8,8 +8,8 @@ const knex = require('knex')(config);
 
 
 function validUser(user) {
-    const validEmail = typeof user.email == 'string';
-    const validPassword = typeof user.password == 'string';
+    const validEmail = typeof user.email == 'string' && user.email.trim() != '';
+    const validPassword = typeof user.password == 'string' && user.password.trim() != '' && user.password.trim().length >=3;
     return validEmail && validPassword;
 
 }
@@ -32,7 +32,7 @@ router.post('/signup', (req, res, next) => {
                 });
             });
     } else {
-        next(new Error('Invalid user, don\'t ask me why'));
+        next(new Error('Invalid user, fix yo shite!'));
     }
 });
 
