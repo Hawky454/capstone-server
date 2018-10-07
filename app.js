@@ -8,6 +8,9 @@ const app = express();
 const cellar = require('./api/cellar');
 const pipes = require('./api/pipes');
 const users = require('./api/users');
+// const auth = require('./auth');
+
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -17,7 +20,7 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 
 
-
+// app.use('/auth', auth);
 app.use('/api/cellar', cellar);
 app.use('/api/pipes', pipes);
 app.use('/api/users', users);

@@ -6,44 +6,47 @@ const config = require('../knexfile')[env];
 const knex = require('knex')(config);
 
 
-function isValidId(req, res, next) {
-    if(!isNaN(req.params.id)) return next();
-    next(new Error('Invalid ID'));
+
+function validUser(user) {
+    const validEmail = typeof user.email == 'string';
+    const validPassword = typeof user.password == 'string';
+    return validEmail && validPassword;
+
 }
 
-router.get('/', (req, res) => {
+router.get('/signup', (req, res) => {
     queriesUsers.getAll().then(users => {
         res.json(users);
         console.table(users);
     });
 });
 
-router.get('/:id', isValidId, (req, res, next) => {
-    queriesUsers.getOne(req.params.id).then(users => {
-        if (users) {
-            res.json(users);
-            console.table(users);
-        } else {
-            res.status(404);
-            next(new Error('Not Found! Hot Damn!'))
-        }
-    });
+router.post('/signup', (req, res, next) => {
+    if (validUser(req.body)) {
+        queriesUsers.getOneByEmail(req.body.email)
+            .then(user => {
+                console.log('user', user);
+                res.json({
+                    user,
+                    message: '✅✅✅✅✅✅✅✅✅✅, this is a message fo ya foo!'
+                });
+            });
+    } else {
+        next(new Error('Invalid user, don\'t ask me why'));
+    }
 });
 
+//!don't delete below just in case the one your building doesn't work
+//   router.post('/signup', (req, res, next) => {
+//     //todo validate entries here
+//     queriesUsers.create(req.body).then(users => {
+//         res.json(users[0]);
+//         console.log('this is the request body for users', req.body);
+//     });
+//   });
 
 
-
-
-  router.post('/', (req, res, next) => {
-    //todo validate entries here
-    queriesUsers.create(req.body).then(users => {
-        res.json(users[0]);
-        console.log('this is the request body for users', req.body);
-    });
-  });
-
-
-  router.delete('/:id', (req, res) => {
+  router.delete('/signup/:id', (req, res) => {
     queriesUsers.delete(req.params.id).then(() => {
       res.json({
         deleted: true
