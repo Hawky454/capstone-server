@@ -6,6 +6,8 @@ const logger = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config();
+
 
 const cellar = require('./api/cellar');
 const pipes = require('./api/pipes');
@@ -26,6 +28,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 //   extended: false
 // }));
 app.use(cors());
+
 
 
 

@@ -78,9 +78,10 @@ router.post('/login', (req, res, next) => {
                             //if passwords match
                             if (result) {
                                 //this is where we set a cookie
+                                const isSecure = req.app.get('env') != 'development';
                                 res.cookie('user_id', user.id, {
                                     httpOnly: true,
-                                    secure: true,
+                                    secure: isSecure,
                                     signed: true
                                 });
                                 res.json({
