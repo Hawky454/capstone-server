@@ -17,16 +17,16 @@ const users = require('./api/users');
 
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
 //! Think I eventually need to do a join(__dirname, 'directory_here') once I deploy
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 //! dont think I need these now that I've installed body-parser?
-// app.use(express.json());
-// app.use(express.urlencoded({
-//   extended: false
-// }));
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cors());
 
 

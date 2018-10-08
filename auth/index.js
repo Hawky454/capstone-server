@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const users = require('../database/queriesUsers');
+// const express = require('express');
+// const router = express.Router();
+// const users = require('../database/queriesUsers');
 
 // // Route paths are prepended with /auth
 

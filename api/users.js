@@ -15,10 +15,18 @@ function validUser(user) {
 
 }
 
+//! Route paths are prepended with users
+
+router.get('/', (req, res) => {
+    res.json({
+        message: 'okay this is working! 😀'
+    });
+});
+
 router.get('/signup', (req, res) => {
     queriesUsers.getAll().then(users => {
         res.json(users);
-        console.table(users);
+        console.table('this route is working!',users);
     });
 });
 
@@ -56,13 +64,14 @@ router.post('/signup', (req, res, next) => {
                         });
                 } else {
                     //email in use
-                    next(new Error('Email in use'));
+                    next(new Error('Email in use, nice try, Buck-O'));
                 }
             });
     } else {
-        next(new Error('Invalid user, fix yo shite!'));
+        next(new Error('Invalid user, [signup]'));
     }
 });
+
 
 //! Logic for user logging in!!!! Here we go, this is exciting!
 router.post('/login', (req, res, next) => {
@@ -75,13 +84,14 @@ router.post('/login', (req, res, next) => {
                     // Compare password with hashed password
                     bcrypt.compare(req.body.password, user.password)
                         .then((result) => {
+                            // console.log('this is result', result);
                             //if passwords match
                             if (result) {
                                 //this is where we set a cookie
                                 const isSecure = req.app.get('env') != 'development';
                                 res.cookie('user_id', user.id, {
                                     httpOnly: true,
-                                    secure: isSecure,
+                                    // secure: isSecure,
                                     signed: true
                                 });
                                 res.json({
@@ -89,7 +99,7 @@ router.post('/login', (req, res, next) => {
                                     message: 'Logged in, success!!🔓'
                                 });
                             } else {
-                                next(new Error('Invalid login ☹️'))
+                                next(new Error('Invalid login ☹️'));
                             }
                         });
                 } else {
@@ -97,7 +107,7 @@ router.post('/login', (req, res, next) => {
                 }
             });
     } else {
-        next(new Error('Invalid login'));
+        next(new Error('Invalid login, Dont know why I have two of these'));
     }
 });
 

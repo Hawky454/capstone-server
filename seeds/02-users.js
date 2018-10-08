@@ -8,8 +8,8 @@ exports.seed = function(knex, Promise) {
         {
           email: 'hawky454@gmail.com',
           username: 'Hawky454',
-          password: 'Billygoat173@',
-          password2: 'Billygoat173@',
+          password: 'abc123',
+          password2: 'abc123',
           address: '10707 Lake Creak Parkway',
           city: 'Austin',
           state: 'TX',
@@ -17,9 +17,9 @@ exports.seed = function(knex, Promise) {
         },
         {
           email: 'dummy123@email.com',
-          username: 'BillyGoat69',
-          password: 'Billygoat173@',
-          password2: 'Billygoat173@',
+          username: 'HappyDoggie',
+          password: 'HappyDoggie33',
+          password2: 'HappyDoggie33',
           address: '3434 Haven Oak Dr',
           city: 'Portland',
           state: 'OR',
