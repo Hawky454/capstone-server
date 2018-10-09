@@ -22,7 +22,7 @@ function validateEntries(cellar) {
     return hasPrice && hasRating && hasWeight && hasAge && hasURL;
   }
 
-//! I can do it this way by directing it to the queries file or I can do it the way bellow the next 6 lines
+
 router.get('/', (req, res) => {
     queries.getAll().then(cellar => {
         res.json(cellar);

@@ -13,12 +13,19 @@ const cellar = require('./api/cellar');
 const pipes = require('./api/pipes');
 const users = require('./api/users');
 
+// app.options('*', cors());
 
+//! not sure if this is needed
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 
 app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 //! Think I eventually need to do a join(__dirname, 'directory_here') once I deploy
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -27,7 +34,9 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: false
 }));
-app.use(cors());
+app.use(cors({
+  credentials: true
+}));
 
 
 

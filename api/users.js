@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
 router.get('/signup', (req, res) => {
     queriesUsers.getAll().then(users => {
         res.json(users);
-        console.table('this route is working!',users);
+        console.table('this route is working! 😃 😃',users);
     });
 });
 
@@ -68,7 +68,7 @@ router.post('/signup', (req, res, next) => {
                 }
             });
     } else {
-        next(new Error('Invalid user, [signup]'));
+        next(new Error('Invalid user, /signup'));
     }
 });
 
@@ -91,7 +91,7 @@ router.post('/login', (req, res, next) => {
                                 const isSecure = req.app.get('env') != 'development';
                                 res.cookie('user_id', user.id, {
                                     httpOnly: true,
-                                    // secure: isSecure,
+                                    secure: isSecure,
                                     signed: true
                                 });
                                 res.json({
@@ -107,17 +107,10 @@ router.post('/login', (req, res, next) => {
                 }
             });
     } else {
-        next(new Error('Invalid login, Dont know why I have two of these'));
+        next(new Error('Invalid login'));
     }
 });
 
-// router.delete('/signup/:id', (req, res) => {
-//     queriesUsers.delete(req.params.id).then(() => {
-//         res.json({
-//             deleted: true
-//         });
-//     });
-// });
 
 
 module.exports = router;
